@@ -2,6 +2,10 @@
 
 Executed on 13 September 2026 with Python 3.12 and Streamlit 1.63.0 against disposable JSON files. This is machine-generated verification evidence, not student-authored report text.
 
+Latest session UI update: all **28 tests (17 logic and 11 UI)** passed in 22.025 seconds, exit code 0. The sidebar shows a live inactivity countdown, progress bar, expiry warning and Stay signed in button, with five-minute default and 30-second demo durations. Tests verify renewal by navigation and Stay signed in, no renewal from automatic reruns or OTP expiry, clearing the pending transaction and authentication on timeout, restoration of the default after login, and rejection of attempts to revive an expired session by renewal or selecting a longer duration. Unsubmitted form typing is not sent to the server and does not renew the timer.
+
+Latest OTP update: all **23 tests (17 logic and 6 UI)** passed in 14.421 seconds, exit code 0. Every service uses a shared countdown and progress bar that refresh every second without refreshing the input form. UI checks cover the displayed remaining time, countdown reset on retry, removal of the confirmation form on expiry, and countdown availability for all four services. Incorrect entries replace the code with a different six-digit OTP and restart its 60-second validity. Regression checks cover rejection of previously issued codes, expiry at the replacement code's exact deadline, avoidance of repeated random codes, immediate display of the replacement, clearing the input, unchanged balances on failure, and successful confirmation with the latest code. The three-attempt limit remains enforced. The results and browser captures below document the earlier prototype; the walkthrough predates automatic OTP replacement on retries and the live countdown.
+
 The 14 logic tests cover valid/invalid login, salted hashes, three-failure locking and lock expiry, amount and payment-detail validation, wrong/expired OTPs, three-attempt OTP limits, malformed and non-ASCII OTP input, expiry while waiting for the write lock, ownership, duplicate confirmation, transfer conservation and both histories, restart persistence, all payment types, card masking, CSV contents, concurrent deposits, unreadable JSON preservation and failed-write behavior.
 
 The five UI tests cover valid/invalid login and logout, navigation, insufficient funds, transfer and recipient balances, wrong/correct and non-ASCII OTP interactions, bill/card/deposit confirmations, history rendering, chart rendering, cancellation, simulated OTP expiry and simulated session inactivity timeout. UI expiry and timeout use test-controlled state; they do not establish elapsed wall-clock behavior in a disconnected browser.
@@ -13,6 +17,10 @@ The portable test sources are in `tests/test_bank.py` and `tests/test_ui.py` in 
 These checks verify the prototype; they do not prove the report, recorded demonstration, official disclosure form, student authorship or submission is complete.
 
 ## Banking logic
+
+Live session UI verification used separate disposable accounts and the 30-second demo. The warning appeared with four seconds remaining; Stay signed in reset the countdown (28 seconds at the next observation) and cleared the warning. Without further input or refresh, the login form and automatic-logout explanation appeared, observed 37.363 seconds after renewal. This is an observation after the deadline rather than an exact timing measurement. See `evidence/session-ui.json`.
+
+Live countdown verification used a separate local preview and disposable accounts. The display decreased from 58 to 45 seconds over 13.491 seconds while retaining typed input. An incorrect submission generated a different code and reset the display to 58 seconds at observation. With no further click or refresh, the confirmation form disappeared after the replacement deadline; Alice retained RM 5,000.00 and zero completed activities. The observation after expiry was 66.679 seconds after the replacement snapshot, not the exact expiry instant. See `evidence/otp-countdown.json`.
 
 Exit code: 0
 

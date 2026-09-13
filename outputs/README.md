@@ -37,19 +37,19 @@ The included JSON contains transactions from local demo use, including the first
 
 1. Log in and choose **Payments & deposits**.
 2. Select a service tab, enter the details and request an OTP.
-3. Confirm the displayed transaction details. The simulated OTP is shown in the application and expires after 60 seconds. Balances have not changed at this point.
+3. Confirm the displayed transaction details. The simulated OTP is shown with a countdown and progress bar that refresh every second, and expires after 60 seconds. Expiry automatically removes the confirmation form while the browser is connected. Balances have not changed at this point.
 4. Enter the OTP and confirm once. A successful transaction updates balances and writes one transaction record atomically to JSON.
 5. Open **Transaction history**, filter by credit/debit and download a CSV if required. Transfers appear in both users' histories, with the balance after that transfer.
 
-Wrong OTPs leave the balances unchanged. Three wrong OTPs close that request; expiry also requires a new request. Cancelling, logging out or timing out discards an unconfirmed request. Completed transaction IDs prevent duplicate charges even if a request is replayed.
+Wrong OTPs leave the balances unchanged and immediately issue a different code for the next attempt, with a fresh 60-second expiry and an empty input field. Previous codes cannot confirm that request. Three wrong OTPs close that request; expiry also requires a new request. Cancelling, logging out or timing out discards an unconfirmed request. Completed transaction IDs prevent duplicate charges even if a request is replayed.
 
 ## Implemented enhancements
 
 - JSON persistence with a file lock and atomic writes.
 - Unique password salts and PBKDF2-HMAC-SHA256 hashing with 200,000 iterations.
 - Account lock for 60 seconds after three failed logins, persisted across restarts.
-- Five-minute inactivity logout, checked by a background Streamlit fragment every five seconds while the browser session remains connected. It is also checked on the next interaction.
-- 60-second OTP expiry, fresh six-digit codes for new requests and a three-attempt limit.
+- Inactivity logout with a live sidebar countdown and progress bar, refreshed every second while the browser is connected. The default is five minutes; select **30 seconds (demo)** to demonstrate it quickly. The last minute of the default interval (last ten seconds in demo mode) shows a warning. **Stay signed in**, navigation, filters and submitted forms renew an active session. Unsubmitted typing and automatic timer refreshes do not renew it. Expiry clears the login, OTP and pending transaction, then displays the login page with an explanation. An interaction after the deadline cannot revive an expired session.
+- 60-second OTP expiry, fresh six-digit codes for every new request and retry, and a three-attempt limit.
 - Account balance and spending charts.
 - CSV export and credit/debit filters.
 
@@ -66,7 +66,7 @@ Amounts are integer cents; inputs must be positive, finite and have no more than
 | `BankStore.validate/prepare` | Validate transaction details and create an OTP request |
 | `BankStore.confirm` | Verify request ownership, expiry, OTP, duplicate ID and current balance; commit once |
 | `user_history` / `export_csv` | Build account-specific histories and downloadable CSV data |
-| `main` | Render Streamlit pages, session state, watchdog, forms and receipts |
+| `main` | Render Streamlit pages, session state, inactivity countdown, forms and receipts |
 
 ## Verification and limits
 
@@ -82,7 +82,7 @@ After installing requirements, run the packaged tests from this folder:
 python -m unittest discover -s tests -v
 ```
 
-The 19 cases use temporary accounts and do not modify `data/bank.json`. `TEST-RESULTS.md` contains the actual result of running the packaged tests.
+The 28 cases use temporary accounts and do not modify `data/bank.json`. `TEST-RESULTS.md` contains the actual result of running the packaged tests.
 
 `Virtual-Banking-Walkthrough.mp4` is a captioned sequence of live browser captures, edited to hold each state long enough to read. It is a learning walkthrough, with no narration or continuous capture of every mouse movement. It is not presented as your own recorded assessment demonstration. Captures use a separate disposable dataset: Alice finishes at RM 4,897.50 after a RM 100 transfer, RM 12.50 bill payment, RM 20 credit card payment and RM 30 deposit; Bob finishes at RM 2,600.00. These additional tests do not change the default demo data described above. The corresponding ledger and CSV are saved under `evidence/`.
 

@@ -5,7 +5,7 @@
       "name": "Alice Tan",
       "salt": "9d6cb6c5aa67385679f9efaac56c8b27",
       "password_hash": "4be5a418034dda2b37ae3af2a8bfa8ea05f90b2d35b362050b39bb8635bae7f6",
-      "balance_cents": 475000,
+      "balance_cents": 1275000,
       "opening_cents": 500000,
       "failed_logins": 0,
       "locked_until": 0
@@ -60,6 +60,28 @@
       "target": "Electricity:1234",
       "amount_cents": 5000,
       "balance_cents": 475000,
+      "recipient_balance_cents": null,
+      "status": "Completed"
+    },
+    {
+      "id": "8a9eb2e150d74d05ab66282360886b66",
+      "timestamp": "2026-09-13T11:03:07+00:00",
+      "kind": "Credit card payment",
+      "user": "alice",
+      "target": "Card ending 9999",
+      "amount_cents": 200000,
+      "balance_cents": 275000,
+      "recipient_balance_cents": null,
+      "status": "Completed"
+    },
+    {
+      "id": "5483cbcfb35a4eee9c5a7f7476421e0f",
+      "timestamp": "2026-09-13T11:03:59+00:00",
+      "kind": "Deposit",
+      "user": "alice",
+      "target": "Simulated cash deposit",
+      "amount_cents": 1000000,
+      "balance_cents": 1275000,
       "recipient_balance_cents": null,
       "status": "Completed"
     }

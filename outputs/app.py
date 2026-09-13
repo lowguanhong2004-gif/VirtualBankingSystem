@@ -12,6 +12,7 @@ import hashlib
 import hmac
 import io
 import json
+import math
 import os
 import secrets
 import tempfile
@@ -187,9 +188,21 @@ class BankStore:
         target = target.strip()
         self.validate(self.load(), username, kind, cents, target)
         now = time.time() if now is None else now
-        return {"id": uuid.uuid4().hex, "user": username, "kind": kind, "cents": cents,
-                "target": target, "otp": f"{secrets.randbelow(1000000):06d}",
-                "expires_at": now + OTP_SECONDS, "attempts": 0, "closed": False}
+        pending = {"id": uuid.uuid4().hex, "user": username, "kind": kind, "cents": cents,
+                   "target": target, "attempts": 0, "closed": False, "issued_otps": []}
+        self.issue_otp(pending, now)
+        return pending
+
+    @staticmethod
+    def issue_otp(pending, now):
+        """Replace the code; never reuse one already issued for this request."""
+        issued = pending.setdefault("issued_otps", [pending["otp"]] if "otp" in pending else [])
+        code = f"{secrets.randbelow(1000000):06d}"
+        while code in issued:
+            code = f"{secrets.randbelow(1000000):06d}"
+        issued.append(code)
+        pending["otp"] = code
+        pending["expires_at"] = now + OTP_SECONDS
 
     def confirm(self, username, pending, otp, now=None):
         live_clock = now is None
@@ -206,7 +219,9 @@ class BankStore:
             if pending["attempts"] >= 3:
                 pending["closed"] = True
                 raise BankError("Three incorrect OTP attempts. Start a new transaction.")
-            raise BankError(f"Incorrect OTP. {3 - pending['attempts']} attempts remaining.")
+            self.issue_otp(pending, now)
+            raise BankError(f"Incorrect OTP. A new OTP has been generated and expires in {OTP_SECONDS} seconds. "
+                            f"{3 - pending['attempts']} attempts remaining.")
         with self.lock():
             # A request may expire while waiting for another session's write lock.
             if live_clock and time.time() >= pending["expires_at"]:
@@ -288,9 +303,29 @@ def main():
         st.session_state.clear()
         st.session_state["notice"] = message
 
+    def timeout_seconds():
+        return st.session_state.get("timeout_seconds", SESSION_SECONDS)
+
+    def timeout_notice():
+        duration = "30 seconds" if timeout_seconds() == 30 else "five minutes"
+        return (f"Your session expired after {duration} of inactivity. You were automatically logged out. "
+                "Any unconfirmed transaction was cancelled. Please log in again.")
+
+    def record_activity():
+        current = time.time()
+        # An interaction arriving after the deadline must not revive the session.
+        if st.session_state.get("user") and current - st.session_state.get("last_activity", 0) < timeout_seconds():
+            st.session_state["last_activity"] = current
+
+    def change_timeout():
+        if time.time() - st.session_state.get("last_activity", 0) >= timeout_seconds():
+            return
+        record_activity()
+        st.session_state["timeout_seconds"] = 30 if st.session_state["session_duration"] == "30 seconds (demo)" else SESSION_SECONDS
+
     now = time.time()
-    if st.session_state.get("user") and now - st.session_state.get("last_activity", now) >= SESSION_SECONDS:
-        sign_out("Your session expired after five minutes of inactivity. Please log in again.")
+    if st.session_state.get("user") and now - st.session_state.get("last_activity", 0) >= timeout_seconds():
+        sign_out(timeout_notice())
     if "notice" in st.session_state:
         st.info(st.session_state.pop("notice"))
     if not st.session_state.get("user"):
@@ -316,14 +351,6 @@ def main():
         st.stop()
 
     username = st.session_state["user"]
-    st.session_state["last_activity"] = now
-
-    @st.fragment(run_every="5s")
-    def watchdog():
-        if time.time() - st.session_state.get("last_activity", 0) >= SESSION_SECONDS:
-            sign_out("Your session expired after five minutes of inactivity. Please log in again.")
-            st.rerun()
-    watchdog()
     try:
         data = store.load()
     except BankError as error:
@@ -340,10 +367,26 @@ def main():
     with st.sidebar:
         st.subheader(user["name"])
         st.caption(f"Demo account · {username}")
-        page = st.radio("Banking services", ["Dashboard", "Payments & deposits", "Transaction history"], key="navigation")
+        page = st.radio("Banking services", ["Dashboard", "Payments & deposits", "Transaction history"], key="navigation", on_change=record_activity)
         st.divider()
-        st.write("OTP validity: 60 seconds")
-        st.write("Session timeout: 5 minutes")
+        st.write(f"OTP validity: {OTP_SECONDS} seconds")
+        st.selectbox("Session timeout", ["5 minutes", "30 seconds (demo)"], key="session_duration", on_change=change_timeout)
+
+        @st.fragment(run_every="1s")
+        def session_status():
+            remaining = max(0, math.ceil(timeout_seconds() - (time.time() - st.session_state.get("last_activity", 0))))
+            if remaining == 0:
+                sign_out(timeout_notice())
+                st.rerun()
+            minutes, seconds = divmod(remaining, 60)
+            st.write(f"**Auto logout in {minutes:02d}:{seconds:02d}**")
+            st.progress(min(1.0, remaining / timeout_seconds()))
+            if remaining <= min(60, timeout_seconds() // 3):
+                st.warning("Your session is about to expire. Choose Stay signed in to continue.")
+            st.button("Stay signed in", key="stay_signed_in", on_click=record_activity, width="stretch")
+            st.caption("Navigation, submitted forms and Stay signed in restart the inactivity timer.")
+
+        session_status()
         if st.button("Log out", width="stretch"):
             sign_out("You have logged out. Any unconfirmed transaction was cancelled.")
             st.rerun()
@@ -390,61 +433,80 @@ def main():
             with st.form("transfer"):
                 recipient = st.selectbox("Recipient", [key for key in data["users"] if key != username], disabled=busy, key="recipient")
                 amount = st.text_input("Transfer amount (RM)", placeholder="100.00", disabled=busy, key="transfer_amount")
-                if st.form_submit_button("Request transfer OTP", disabled=busy, type="primary"):
+                if st.form_submit_button("Request transfer OTP", disabled=busy, type="primary", on_click=record_activity):
                     request("Transfer", amount, recipient)
         with bill:
             with st.form("bill"):
                 service = st.selectbox("Service", BILL_SERVICES, disabled=busy, key="bill_service")
                 reference = st.text_input("Bill reference (4-20 digits)", disabled=busy, key="bill_reference")
                 amount = st.text_input("Bill amount (RM)", disabled=busy, key="bill_amount")
-                if st.form_submit_button("Request bill payment OTP", disabled=busy, type="primary"):
+                if st.form_submit_button("Request bill payment OTP", disabled=busy, type="primary", on_click=record_activity):
                     request("Bill payment", amount, service + ":" + reference.strip())
         with card:
             with st.form("card"):
                 number = st.text_input("Fictional credit card number (16 digits)", disabled=busy, key="card_number")
                 amount = st.text_input("Credit card payment amount (RM)", disabled=busy, key="card_amount")
-                if st.form_submit_button("Request credit card OTP", disabled=busy, type="primary"):
+                if st.form_submit_button("Request credit card OTP", disabled=busy, type="primary", on_click=record_activity):
                     request("Credit card payment", amount, number)
         with deposit:
             st.caption("This simulates a cash deposit. No payment gateway is connected.")
             with st.form("deposit"):
                 amount = st.text_input("Deposit amount (RM)", disabled=busy, key="deposit_amount")
-                if st.form_submit_button("Request deposit OTP", disabled=busy, type="primary"):
+                if st.form_submit_button("Request deposit OTP", disabled=busy, type="primary", on_click=record_activity):
                     request("Deposit", amount, "Simulated cash deposit")
     elif page == "Payments & deposits":
         st.subheader("Pending transaction")
         st.info("Confirm or cancel the transaction below before starting another.")
     else:
         st.subheader("Transaction history")
-        selection = st.selectbox("Filter activities", ["All", "Credit", "Debit"])
+        selection = st.selectbox("Filter activities", ["All", "Credit", "Debit"], on_change=record_activity)
         rows = [row for row in history if selection == "All" or row["Direction"] == selection]
         if rows:
             st.dataframe(list(reversed(rows)), hide_index=True, width="stretch")
         else:
             st.info("No transactions match this filter.")
-        st.download_button("Download CSV", data=export_csv(rows), file_name=f"{username}_transactions.csv", mime="text/csv")
+        st.download_button("Download CSV", data=export_csv(rows), file_name=f"{username}_transactions.csv", mime="text/csv", on_click=record_activity)
 
+    if "otp_error" in st.session_state:
+        st.error(st.session_state.pop("otp_error"))
     if pending:
         st.divider()
         with st.container(border=True):
             st.subheader("Verify your transaction")
             target = "Card ending " + pending["target"][-4:] if pending["kind"] == "Credit card payment" else pending["target"]
             st.write(f"{pending['kind']} · {money(pending['cents'])} · {target}")
-            st.info(f"Simulated OTP delivery: {pending['otp']}\n\nValid for 60 seconds from generation. No money has moved yet.")
-            # Each request has its own widget keys, so old OTP input cannot carry over.
-            with st.form("otp_" + pending["id"]):
-                otp = st.text_input("Enter the 6-digit OTP", max_chars=6, key="code_" + pending["id"])
-                confirmed = st.form_submit_button("Confirm transaction", type="primary")
+            st.info(f"Simulated OTP delivery: {pending['otp']}\n\nValid for {OTP_SECONDS} seconds from generation. "
+                    "Each incorrect attempt replaces the code. No money has moved yet.")
+
+            @st.fragment(run_every="1s")
+            def otp_countdown():
+                active = st.session_state.get("pending")
+                if active is None:
+                    return
+                remaining = max(0, math.ceil(active["expires_at"] - time.time()))
+                if active["closed"] or remaining == 0:
+                    active["closed"] = True
+                    st.rerun()
+                st.metric("OTP expires in", f"{remaining} seconds")
+                st.progress(min(1.0, remaining / OTP_SECONDS))
+
+            otp_countdown()
+            # Separate widget keys clear the input whenever a replacement code is issued.
+            attempt_key = pending["id"] + (f"_{pending['attempts']}" if pending["attempts"] else "")
+            with st.form("otp_" + attempt_key):
+                otp = st.text_input("Enter the 6-digit OTP", max_chars=6, key="code_" + attempt_key)
+                confirmed = st.form_submit_button("Confirm transaction", type="primary", on_click=record_activity)
             if confirmed:
                 try:
                     st.session_state["receipt"] = store.confirm(username, pending, otp)
                     st.session_state.pop("pending", None)
                     st.rerun()
                 except (BankError, OSError) as error:
-                    st.error(str(error))
+                    st.session_state["otp_error"] = str(error)
                     if pending["closed"]:
                         st.session_state.pop("pending", None)
-            if st.button("Cancel transaction", key="cancel_" + pending["id"]):
+                    st.rerun()
+            if st.button("Cancel transaction", key="cancel_" + pending["id"], on_click=record_activity):
                 st.session_state.pop("pending", None)
                 st.session_state["notice"] = "Transaction cancelled. Your balance was not changed."
                 st.rerun()

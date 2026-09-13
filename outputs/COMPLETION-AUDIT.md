@@ -19,7 +19,7 @@ The full assignment is **not yet complete**. The AI-assisted banking prototype a
 | Tabs, buttons, sidebar and input fields | Rendered Streamlit interface, UI tests and browser captures | Verified |
 | Invalid login, insufficient funds and incorrect OTP errors | Logic/UI tests and live error captures | Verified |
 | Optional enhancements | JSON persistence, password hashing, charts, account lock, inactivity timeout, improved OTP and CSV implemented | Verified within documented simulation limits |
-| Test and debugging evidence | 14 logic cases and 5 UI cases pass; development notes; timed browser checks; actual restart preserves balances/history | Verified |
+| Test and debugging evidence | 17 logic cases and 11 UI cases pass, including replacement OTPs, their 60-second expiry, live countdown, session warning/renewal and expired-session protection; development notes; timed browser checks; actual restart preserves balances/history | Verified |
 | Portable code package | ZIP CRC check passes; application, packaged tests, walkthrough and result hashes match the package manifest | Verified |
 | Report PDF with all eight sections | No PDF or editable report draft in outputs; checklist only | Missing student material |
 | Recommended report length and prescribed fonts | No report available to inspect | Unverified |
@@ -35,4 +35,4 @@ The PDF's independent-work and report-authorship conditions are assignment facts
 
 Next required input: supply your own report draft, your recorded assessment demonstration, and the official AI Usage Disclosure Form. The report can then be checked for required sections, formatting, screenshots, explanations and references; the recording can be checked for duration, readability and feature coverage. The student must review and complete declarations personally. No additional prototype changes are currently required by the verified feature checklist.
 
-The existing ZIP is the verified prototype package from before this audit file was created. This audit is provided separately; it does not change the packaged application or its verification evidence.
+The ZIP includes this audit and the latest OTP implementation. Historical browser captures and the walkthrough predate automatic OTP replacement on retries; the latest automated results are recorded in `TEST-RESULTS.md`.

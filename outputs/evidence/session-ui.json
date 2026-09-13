@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-13",
+  "preview": "http://127.0.0.1:8502/",
+  "dataset": "Separate disposable accounts",
+  "duration_seconds": 30,
+  "warning_observed_at_remaining_seconds": 4,
+  "stay_signed_in_reset_timer": true,
+  "renewed_timer_observed_seconds": 28,
+  "warning_cleared_after_renewal": true,
+  "logout_observed_after_renewal_seconds": 37.363,
+  "logout_without_click_or_refresh": true,
+  "login_form_displayed": true,
+  "automatic_logout_explanation_displayed": true,
+  "note": "Logout was observed after the deadline, not measured at its exact instant."
+}

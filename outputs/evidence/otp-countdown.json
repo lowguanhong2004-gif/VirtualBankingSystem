@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-13",
+  "preview": "http://127.0.0.1:8502/",
+  "dataset": "Separate disposable accounts; no completed transactions",
+  "initial_seconds": 58,
+  "later_seconds": 45,
+  "elapsed_between_observations_seconds": 13.491,
+  "typed_input_preserved": true,
+  "replacement_seconds": 58,
+  "replacement_code_changed": true,
+  "expiry_observed_after_replacement_snapshot_seconds": 66.679,
+  "expired_without_click_or_refresh": true,
+  "confirmation_form_removed": true,
+  "remaining_balance": "RM 5,000.00",
+  "completed_activities": 0,
+  "note": "Observation after the deadline, not a measurement of the exact expiry instant."
+}

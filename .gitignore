@@ -1,4 +1,5 @@
 work/
+outputs/tests/tmp*/
 __pycache__/
 *.py[cod]
 *.lock

@@ -55,13 +55,46 @@ class BankTests(unittest.TestCase):
     def test_wrong_otp_and_three_attempt_limit(self):
         pending = self.store.prepare("alice", "Transfer", "100", "bob", now=1000)
         before = self.store.load()
-        wrong = "999999" if pending["otp"] != "999999" else "000000"
         for _ in range(3):
+            wrong = "999999" if pending["otp"] != "999999" else "000000"
             with self.assertRaises(bank.BankError):
                 self.store.confirm("alice", pending, wrong, now=1001)
         with self.assertRaises(bank.BankError):
             self.store.confirm("alice", pending, pending["otp"], now=1002)
         self.assertEqual(before, self.store.load())
+
+    def test_retry_replaces_code_and_rejects_previous_codes(self):
+        pending = self.store.prepare("alice", "Deposit", "1", "Simulated cash deposit", now=1000)
+        first = pending["otp"]
+        with self.assertRaisesRegex(bank.BankError, "new OTP"):
+            self.store.confirm("alice", pending, "invalid", now=1059)
+        second = pending["otp"]
+        self.assertNotEqual(first, second)
+        self.assertEqual(pending["expires_at"], 1119)
+        with self.assertRaisesRegex(bank.BankError, "new OTP"):
+            self.store.confirm("alice", pending, first, now=1060)
+        self.assertNotIn(pending["otp"], (first, second))
+        self.assertEqual(pending["attempts"], 2)
+        self.assertEqual(len(self.store.load()["transactions"]), 0)
+        self.store.confirm("alice", pending, pending["otp"], now=1061)
+        self.assertEqual(len(self.store.load()["transactions"]), 1)
+
+    def test_replacement_code_expires_at_60_seconds(self):
+        pending = self.store.prepare("alice", "Deposit", "1", "Simulated cash deposit", now=1000)
+        with self.assertRaises(bank.BankError):
+            self.store.confirm("alice", pending, "invalid", now=1059)
+        with self.assertRaisesRegex(bank.BankError, "expired"):
+            self.store.confirm("alice", pending, pending["otp"], now=1119)
+        self.assertTrue(pending["closed"])
+        self.assertEqual(len(self.store.load()["transactions"]), 0)
+
+    def test_code_generation_skips_already_issued_codes(self):
+        with patch.object(bank.secrets, "randbelow", side_effect=[123, 123, 456]):
+            pending = self.store.prepare("alice", "Deposit", "1", "Simulated cash deposit", now=1000)
+            self.assertEqual(pending["otp"], "000123")
+            with self.assertRaises(bank.BankError):
+                self.store.confirm("alice", pending, "invalid", now=1001)
+            self.assertEqual(pending["otp"], "000456")
 
     def test_expiry_at_exact_boundary(self):
         pending = self.store.prepare("alice", "Deposit", "100", "Simulated cash deposit", now=1000)

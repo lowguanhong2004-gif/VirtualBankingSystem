@@ -1,8 +1,8 @@
 [
   {
     "path": "app.py",
-    "bytes": 22696,
-    "sha256": "f858b4560a8647efbdba2a73444bab95fff5d71c552213fe07c9b87ae8d16677"
+    "bytes": 26018,
+    "sha256": "f5bd46cb0e74e63b9011625d565ef8800b44bcc87beeb03a27bfb33f84546f90"
   },
   {
     "path": "ASSIGNMENT-CHECKLIST.md",
@@ -10,9 +10,14 @@
     "sha256": "f64852e4e2abf6dc18a4d25776d1abf636ce200b57b8988db28a75c67de718ce"
   },
   {
+    "path": "COMPLETION-AUDIT.md",
+    "bytes": 4734,
+    "sha256": "76b798d251d9ebc260e7ea335969be15b104b587d3005e920f6303ea002cf2d0"
+  },
+  {
     "path": "data/bank.json",
-    "bytes": 1975,
-    "sha256": "4fffc83b6b7ef84bfd964940f73befd9e113af0a102be84ab5e7ad627ad7b15d"
+    "bytes": 2660,
+    "sha256": "8a64c80913661dc01528d81efa43bfd7a7e647b2293de58ea760d3cd5852f00c"
   },
   {
     "path": "DEVELOPMENT-NOTES.md",
@@ -20,9 +25,19 @@
     "sha256": "8701bf48f1fadd5c31e4d316dac2b981c94069e2036bee48983bb4d4acb05e7e"
   },
   {
+    "path": "evidence/otp-countdown.json",
+    "bytes": 638,
+    "sha256": "34084c690ebaee5d414ca7f675dba607fd2083978bacc55b54bcecf866db8ef9"
+  },
+  {
     "path": "evidence/session-timeout.json",
     "bytes": 228,
     "sha256": "292b1700406c6fd7d183524c6830a8dd80ae07d6415f1182bf0cacbac1b87af1"
+  },
+  {
+    "path": "evidence/session-ui.json",
+    "bytes": 566,
+    "sha256": "1c95dd3d656b386cc6d5c1ccd833c4cb2b0b4aced95f29ffe06c0635ee874223"
   },
   {
     "path": "evidence/video-verification.json",
@@ -46,8 +61,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 6942,
-    "sha256": "b507211f9d86736e4115a4968da69673001e6e98c7a9c38550d7b21436ab1c5e"
+    "bytes": 7691,
+    "sha256": "50af7175194ee1162ca025ad214731fa78495431153883e921fd28398cdab9fd"
   },
   {
     "path": "requirements.txt",
@@ -166,18 +181,18 @@
   },
   {
     "path": "TEST-RESULTS.md",
-    "bytes": 6608,
-    "sha256": "e4e45ebf0bf4e84cde5014fe27a00120267fd999e29c62d479d19a3cdb030bb8"
+    "bytes": 9282,
+    "sha256": "db672a3fc50da41172d0f6b3020c914ba5752adf0434a0d0c4a58fef1b4d6dcf"
   },
   {
     "path": "tests/test_bank.py",
-    "bytes": 9343,
-    "sha256": "bac5721a2c7f1fe3116826c14685b23f12e9bd34bb2ef15fddff049e961bf464"
+    "bytes": 11257,
+    "sha256": "317ff18312c8d92a71a3c031a07bf965cf38634f1a47025a193aff80f05d383d"
   },
   {
     "path": "tests/test_ui.py",
-    "bytes": 6634,
-    "sha256": "121c89b10e6df5dabdcbaf248e63b62dad1dcaf75020446fbf96a1ddaa66ac25"
+    "bytes": 12047,
+    "sha256": "7b17be1916e8a0fe299a64b66d7751e3162eeccfed148c1f68dc441440e63881"
   },
   {
     "path": "Virtual-Banking-Walkthrough.mp4",
