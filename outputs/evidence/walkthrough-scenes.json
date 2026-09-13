@@ -1,0 +1,164 @@
+[
+  {
+    "filename": "001.png",
+    "caption": "AI-assisted learning prototype | Python + Streamlit banking simulation",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:32:21.503Z"
+  },
+  {
+    "filename": "002.png",
+    "caption": "Invalid login is rejected. Three failures lock an account for 60 seconds.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:32:21.895Z"
+  },
+  {
+    "filename": "003.png",
+    "caption": "Dashboard: RM 5,000.00 balance, account navigation and balance chart.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:32:35.449Z"
+  },
+  {
+    "filename": "004.png",
+    "caption": "Insufficient funds: RM 9,999 is rejected; the balance stays RM 5,000.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:32:45.696Z"
+  },
+  {
+    "filename": "005.png",
+    "caption": "Wrong OTP is rejected; the balance remains RM 5,000.00.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:33:51.556Z"
+  },
+  {
+    "filename": "006.png",
+    "caption": "After more than 60 seconds, the OTP expires and no transaction is completed.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:00.465Z"
+  },
+  {
+    "filename": "007.png",
+    "caption": "Fresh transfer request: RM 100 to Bob. OTP is required before money moves.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:08.217Z"
+  },
+  {
+    "filename": "008.png",
+    "caption": "Correct OTP completes one transfer. Alice's balance is RM 4,900.00.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:09.151Z"
+  },
+  {
+    "filename": "009.png",
+    "caption": "Bill payment: select Electricity, Water, Internet or Mobile phone and validate a reference.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:22.257Z"
+  },
+  {
+    "filename": "010.png",
+    "caption": "OTP-confirmed electricity payment: RM 12.50 deducted. Balance: RM 4,887.50.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:23.007Z"
+  },
+  {
+    "filename": "011.png",
+    "caption": "Credit card module: validate a fictional 16-digit number and a positive amount.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:33.018Z"
+  },
+  {
+    "filename": "012.png",
+    "caption": "Credit card payment requires OTP. The confirmation only displays the final four digits.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:33.354Z"
+  },
+  {
+    "filename": "013.png",
+    "caption": "Credit card payment completed: RM 20.00 deducted. Balance: RM 4,867.50.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:33.792Z"
+  },
+  {
+    "filename": "014.png",
+    "caption": "Simulated deposit: enter RM 30.00 to increase the account balance.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:44.268Z"
+  },
+  {
+    "filename": "015.png",
+    "caption": "OTP-confirmed deposit adds RM 30.00. Final balance: RM 4,897.50.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:34:45.036Z"
+  },
+  {
+    "filename": "016.png",
+    "caption": "Complete history: transfer, bill payment, credit card payment and deposit are recorded.",
+    "duration": 6,
+    "capturedAt": "2026-09-13T10:35:08.731Z"
+  },
+  {
+    "filename": "017.png",
+    "caption": "History includes credit/debit direction, completed status and each post-transaction balance; CSV export is available.",
+    "duration": 6,
+    "capturedAt": "2026-09-13T10:35:19.328Z"
+  },
+  {
+    "filename": "018.png",
+    "caption": "Balance chart shows the sequence of completed banking activities.",
+    "duration": 6,
+    "capturedAt": "2026-09-13T10:35:46.572Z"
+  },
+  {
+    "filename": "019.png",
+    "caption": "Spending chart summarizes outgoing transfers, bill payments and credit card payments.",
+    "duration": 6,
+    "capturedAt": "2026-09-13T10:35:46.619Z"
+  },
+  {
+    "filename": "020.png",
+    "caption": "Recipient verification: Bob's balance increased from RM 2,500.00 to RM 2,600.00.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:35:57.756Z"
+  },
+  {
+    "filename": "021.png",
+    "caption": "Bob's history records the incoming transfer from Alice, with no outgoing payment.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:35:58.101Z"
+  },
+  {
+    "filename": "022.png",
+    "caption": "Third failed login locks Charlie's account for 60 seconds.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:36:34.119Z"
+  },
+  {
+    "filename": "023.png",
+    "caption": "Even the correct password is rejected until the account lock expires.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:36:34.492Z"
+  },
+  {
+    "filename": "024.png",
+    "caption": "Real five-minute inactivity check: automatic logout returned this idle session to the login page.",
+    "duration": 6,
+    "capturedAt": "2026-09-13T10:38:20.070Z"
+  },
+  {
+    "filename": "025.png",
+    "caption": "After the 60-second lock expires, Charlie can log in again with the correct password.",
+    "duration": 5,
+    "capturedAt": "2026-09-13T10:38:20.596Z"
+  },
+  {
+    "filename": "026.png",
+    "caption": "Real server restart: JSON reload preserves Alice's RM 4,897.50 balance and four activities.",
+    "duration": 6,
+    "capturedAt": "2026-09-13T10:39:13.136Z"
+  },
+  {
+    "filename": "027.png",
+    "caption": "Review, understand and adapt this AI-assisted prototype; prepare your own report and demonstration.",
+    "duration": 6,
+    "capturedAt": "2026-09-13T10:39:13.488Z"
+  }
+]

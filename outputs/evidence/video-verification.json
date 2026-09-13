@@ -1,0 +1,11 @@
+{
+  "duration_seconds": 142.0,
+  "resolution": [
+    1280,
+    800
+  ],
+  "fps": 25.0,
+  "scenes": 27,
+  "full_decode_exit_code": 0,
+  "decode_errors": ""
+}

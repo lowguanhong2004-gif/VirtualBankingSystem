@@ -1,0 +1,4 @@
+# Preserve deliverable bytes so package SHA-256 checks remain valid after clone.
+outputs/** -text
+.gitignore text eol=lf
+.gitattributes text eol=lf

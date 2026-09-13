@@ -1,0 +1,5 @@
+﻿Transaction ID,Date / time (UTC),Type,Details,Amount (RM),Direction,Status,Balance (RM)
+e7ea34c236414f6f8871d7401915478a,2026-09-13T10:34:08+00:00,Transfer,bob,100.00,Debit,Completed,4900.00
+33c89f3db1434490b7d91accd7d5b934,2026-09-13T10:34:22+00:00,Bill payment,Electricity:123456,12.50,Debit,Completed,4887.50
+c55ab35e6e1b431abe3e6237a758dc29,2026-09-13T10:34:33+00:00,Credit card payment,Card ending 1111,20.00,Debit,Completed,4867.50
+82278ea9c7744e459d1b77463bdfa8db,2026-09-13T10:34:44+00:00,Deposit,Simulated cash deposit,30.00,Credit,Completed,4897.50

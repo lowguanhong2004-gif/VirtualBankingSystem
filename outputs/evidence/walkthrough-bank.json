@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "users": {
+    "alice": {
+      "name": "Alice Tan",
+      "salt": "d5ece6b6c800466770054a65a18df648",
+      "password_hash": "f58295467ad0a91f3da8566efdf4d12438cde05e85157e5412f35d40d293d931",
+      "balance_cents": 489750,
+      "opening_cents": 500000,
+      "failed_logins": 0,
+      "locked_until": 0
+    },
+    "bob": {
+      "name": "Bob Lee",
+      "salt": "5cdd3509b5d0b1328a0a82fc38c8737e",
+      "password_hash": "cde54bbe62bee5eb4dc9c0c8db6c316497310abf71c9b90335c1ac752e67042e",
+      "balance_cents": 260000,
+      "opening_cents": 250000,
+      "failed_logins": 0,
+      "locked_until": 0
+    },
+    "charlie": {
+      "name": "Charlie Lim",
+      "salt": "98831311942795db39f1537480ce2723",
+      "password_hash": "c9162e1cf2e1648922faf81eb88d36257cf864008bed07feeeba0dab0072c27e",
+      "balance_cents": 150000,
+      "opening_cents": 150000,
+      "failed_logins": 0,
+      "locked_until": 0
+    }
+  },
+  "transactions": [
+    {
+      "id": "e7ea34c236414f6f8871d7401915478a",
+      "timestamp": "2026-09-13T10:34:08+00:00",
+      "kind": "Transfer",
+      "user": "alice",
+      "target": "bob",
+      "amount_cents": 10000,
+      "balance_cents": 490000,
+      "recipient_balance_cents": 260000,
+      "status": "Completed"
+    },
+    {
+      "id": "33c89f3db1434490b7d91accd7d5b934",
+      "timestamp": "2026-09-13T10:34:22+00:00",
+      "kind": "Bill payment",
+      "user": "alice",
+      "target": "Electricity:123456",
+      "amount_cents": 1250,
+      "balance_cents": 488750,
+      "recipient_balance_cents": null,
+      "status": "Completed"
+    },
+    {
+      "id": "c55ab35e6e1b431abe3e6237a758dc29",
+      "timestamp": "2026-09-13T10:34:33+00:00",
+      "kind": "Credit card payment",
+      "user": "alice",
+      "target": "Card ending 1111",
+      "amount_cents": 2000,
+      "balance_cents": 486750,
+      "recipient_balance_cents": null,
+      "status": "Completed"
+    },
+    {
+      "id": "82278ea9c7744e459d1b77463bdfa8db",
+      "timestamp": "2026-09-13T10:34:44+00:00",
+      "kind": "Deposit",
+      "user": "alice",
+      "target": "Simulated cash deposit",
+      "amount_cents": 3000,
+      "balance_cents": 489750,
+      "recipient_balance_cents": null,
+      "status": "Completed"
+    }
+  ]
+}

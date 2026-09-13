@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "users": {
+    "alice": {
+      "name": "Alice Tan",
+      "salt": "9d6cb6c5aa67385679f9efaac56c8b27",
+      "password_hash": "4be5a418034dda2b37ae3af2a8bfa8ea05f90b2d35b362050b39bb8635bae7f6",
+      "balance_cents": 475000,
+      "opening_cents": 500000,
+      "failed_logins": 0,
+      "locked_until": 0
+    },
+    "bob": {
+      "name": "Bob Lee",
+      "salt": "ff8ae54487df492d3d639c7e55c2d7f5",
+      "password_hash": "213db87ddf54a93bbd3489ab01af511f2667198a261cd074b378166da21b8670",
+      "balance_cents": 270000,
+      "opening_cents": 250000,
+      "failed_logins": 0,
+      "locked_until": 0
+    },
+    "charlie": {
+      "name": "Charlie Lim",
+      "salt": "746f747e39c4427e65545b0f46ef4808",
+      "password_hash": "8335fe7debdc0d26be54c374e1c19fd398878f18fb3b45a649600fdc042d0be4",
+      "balance_cents": 150000,
+      "opening_cents": 150000,
+      "failed_logins": 0,
+      "locked_until": 0
+    }
+  },
+  "transactions": [
+    {
+      "id": "e351eb89742544d896242e72f4467b57",
+      "timestamp": "2026-09-13T10:25:55+00:00",
+      "kind": "Transfer",
+      "user": "alice",
+      "target": "bob",
+      "amount_cents": 10000,
+      "balance_cents": 490000,
+      "recipient_balance_cents": 260000,
+      "status": "Completed"
+    },
+    {
+      "id": "57d5f3dfd15d4797a3f2913295585375",
+      "timestamp": "2026-09-13T10:30:19+00:00",
+      "kind": "Transfer",
+      "user": "alice",
+      "target": "bob",
+      "amount_cents": 10000,
+      "balance_cents": 480000,
+      "recipient_balance_cents": 270000,
+      "status": "Completed"
+    },
+    {
+      "id": "601d8f420efe47e99b25a2f521793223",
+      "timestamp": "2026-09-13T10:30:47+00:00",
+      "kind": "Bill payment",
+      "user": "alice",
+      "target": "Electricity:1234",
+      "amount_cents": 5000,
+      "balance_cents": 475000,
+      "recipient_balance_cents": null,
+      "status": "Completed"
+    }
+  ]
+}

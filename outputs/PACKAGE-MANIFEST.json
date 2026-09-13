@@ -1,0 +1,187 @@
+[
+  {
+    "path": "app.py",
+    "bytes": 22696,
+    "sha256": "f858b4560a8647efbdba2a73444bab95fff5d71c552213fe07c9b87ae8d16677"
+  },
+  {
+    "path": "ASSIGNMENT-CHECKLIST.md",
+    "bytes": 6903,
+    "sha256": "f64852e4e2abf6dc18a4d25776d1abf636ce200b57b8988db28a75c67de718ce"
+  },
+  {
+    "path": "data/bank.json",
+    "bytes": 1975,
+    "sha256": "4fffc83b6b7ef84bfd964940f73befd9e113af0a102be84ab5e7ad627ad7b15d"
+  },
+  {
+    "path": "DEVELOPMENT-NOTES.md",
+    "bytes": 2283,
+    "sha256": "8701bf48f1fadd5c31e4d316dac2b981c94069e2036bee48983bb4d4acb05e7e"
+  },
+  {
+    "path": "evidence/session-timeout.json",
+    "bytes": 228,
+    "sha256": "292b1700406c6fd7d183524c6830a8dd80ae07d6415f1182bf0cacbac1b87af1"
+  },
+  {
+    "path": "evidence/video-verification.json",
+    "bytes": 166,
+    "sha256": "595e06c209f7742759861add70875250e6322c455f43868589cbdd2591f048aa"
+  },
+  {
+    "path": "evidence/walkthrough-alice.csv",
+    "bytes": 567,
+    "sha256": "84b1fd1a4e953406ec5488e82c822ca5e88a8f11d19a64c308a88ee02a5dab9c"
+  },
+  {
+    "path": "evidence/walkthrough-bank.json",
+    "bytes": 2334,
+    "sha256": "b9f05e41caa6865c0ab706a09401218a12ac7b0f87f537f579d306ef279fc3b4"
+  },
+  {
+    "path": "evidence/walkthrough-scenes.json",
+    "bytes": 5478,
+    "sha256": "da4fb4c11ef9b8251ddf3facefe3ee9c19348a63029cc169ccde53ac592617a0"
+  },
+  {
+    "path": "README.md",
+    "bytes": 6942,
+    "sha256": "b507211f9d86736e4115a4968da69673001e6e98c7a9c38550d7b21436ab1c5e"
+  },
+  {
+    "path": "requirements.txt",
+    "bytes": 18,
+    "sha256": "e54b7cdf9534774e1826f2509800c1b5fac6e8707e9cf1ea72cb93f613cb8e60"
+  },
+  {
+    "path": "screenshots/01-login.png",
+    "bytes": 29324,
+    "sha256": "461a092654badf0dc6a5c6cfff7a019851d6028aba515c264f5364aa782bbb76"
+  },
+  {
+    "path": "screenshots/02-dashboard.png",
+    "bytes": 50333,
+    "sha256": "919d8b51006cb474520a1881dbe654be63bc033b1d7e2d0a62eef013f5d58c58"
+  },
+  {
+    "path": "screenshots/03-otp-request.png",
+    "bytes": 44906,
+    "sha256": "cdde631738e6cd770fc88e2665ea338e061595a7c7f8a7a2c9361b09158d0cec"
+  },
+  {
+    "path": "screenshots/04-incorrect-otp.png",
+    "bytes": 40629,
+    "sha256": "277da602e90ce0a0632fdd0d487107fcb9d00bc83db37690c8fadd270f54817f"
+  },
+  {
+    "path": "screenshots/05-transfer-success.png",
+    "bytes": 31201,
+    "sha256": "98a4acfeeeeb04ac59770dfd82980851dde24cb51ac6708cb4b8e0f402283960"
+  },
+  {
+    "path": "screenshots/06-dashboard-after-transfer.png",
+    "bytes": 21039,
+    "sha256": "a07f29bbeca2a7288c33aa4501c72579a26acb08cdee0f76ddb7138a944ba28e"
+  },
+  {
+    "path": "screenshots/07-history.png",
+    "bytes": 33015,
+    "sha256": "860a719493af373c830397033ce958770e646fd779cfaba7857f06c9226f4c44"
+  },
+  {
+    "path": "screenshots/08-clean-dashboard.png",
+    "bytes": 50333,
+    "sha256": "919d8b51006cb474520a1881dbe654be63bc033b1d7e2d0a62eef013f5d58c58"
+  },
+  {
+    "path": "screenshots/09-insufficient-funds.png",
+    "bytes": 46718,
+    "sha256": "ffcffaad23f7f559a018e6fe017561e097bd8280b52327def0c8a8d5d97d9ee5"
+  },
+  {
+    "path": "screenshots/10-expired-otp.png",
+    "bytes": 48023,
+    "sha256": "c37c806d344cefa8160a4acb89c7c006bb00087e87b2ba27669c655da5e82b92"
+  },
+  {
+    "path": "screenshots/11-bill-form.png",
+    "bytes": 38961,
+    "sha256": "d6410f02ca5946e8d775d6e16cd0abd670d811815adfedd9dcfc3d1fc8ed4b3c"
+  },
+  {
+    "path": "screenshots/12-bill-success.png",
+    "bytes": 51550,
+    "sha256": "fe90c58219edd3b2efa59d8826d4bb3724416df1a9364cbcf8b77600fcc53e0a"
+  },
+  {
+    "path": "screenshots/13-card-success.png",
+    "bytes": 51867,
+    "sha256": "c64ebe676b2b94d1dc3e9bc5aab103cd21be293fd2139fe776536c1eb66653ef"
+  },
+  {
+    "path": "screenshots/14-deposit-success.png",
+    "bytes": 51561,
+    "sha256": "557535068fcb71ca45cb46d85fde08737174c275fb375ef61a79d21f759aac3a"
+  },
+  {
+    "path": "screenshots/15-all-services-history.png",
+    "bytes": 65543,
+    "sha256": "f6ad14168620b2171da2298ba3ff90bc6c7207205aac6ef959b329796e0aab04"
+  },
+  {
+    "path": "screenshots/16-history-balances.png",
+    "bytes": 58147,
+    "sha256": "dc56a93d720bbfca792faf35f0f9f093cda4bfa3d662b74978308b02ed22e7a4"
+  },
+  {
+    "path": "screenshots/17-spending-chart.png",
+    "bytes": 34073,
+    "sha256": "aa1df3effff7394c0429c9f80dd4ee4cead260009597cf9c4b38b5e73273786c"
+  },
+  {
+    "path": "screenshots/18-recipient-balance.png",
+    "bytes": 49097,
+    "sha256": "b2c85a9a319895602ce4429f24d4eae8082889b8450e897245006b74b8a1ac58"
+  },
+  {
+    "path": "screenshots/19-account-locked.png",
+    "bytes": 40124,
+    "sha256": "b82c0f55f42af7ce1b14fc2b900e6cc9585284c9a03a02331d436406df2e10a3"
+  },
+  {
+    "path": "screenshots/20-session-timeout.png",
+    "bytes": 40997,
+    "sha256": "0c146b300201bd89b5dabc0d2f4255cb6064a4fb06271f51d2ef3d0af44237a4"
+  },
+  {
+    "path": "screenshots/21-restart-persistence.png",
+    "bytes": 52406,
+    "sha256": "b39d595a93396c66c3728904ea8bdb407277434f4929fd7753cc66f0bac2921a"
+  },
+  {
+    "path": "Start-Banking.ps1",
+    "bytes": 626,
+    "sha256": "2299a8c41c2f40fefd0092e5af580be97713631e30b577a3cace0dba700674a2"
+  },
+  {
+    "path": "TEST-RESULTS.md",
+    "bytes": 6608,
+    "sha256": "e4e45ebf0bf4e84cde5014fe27a00120267fd999e29c62d479d19a3cdb030bb8"
+  },
+  {
+    "path": "tests/test_bank.py",
+    "bytes": 9343,
+    "sha256": "bac5721a2c7f1fe3116826c14685b23f12e9bd34bb2ef15fddff049e961bf464"
+  },
+  {
+    "path": "tests/test_ui.py",
+    "bytes": 6634,
+    "sha256": "121c89b10e6df5dabdcbaf248e63b62dad1dcaf75020446fbf96a1ddaa66ac25"
+  },
+  {
+    "path": "Virtual-Banking-Walkthrough.mp4",
+    "bytes": 2994166,
+    "sha256": "100dc9fdb155f7cd126e0dbc4362e67a3b73a2fdf855706a5a95ca2cda7d9051"
+  }
+]
